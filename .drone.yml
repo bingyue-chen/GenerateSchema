@@ -1,0 +1,19 @@
+kind: pipeline
+name: generate-schema
+
+setups:
+- name: setup
+  image: docker
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  commands:
+    - docker build --rm -t snowcookie/generate-schema-php71 ./docker/php71
+
+- name: test
+  image: snowcookie/generate-schema-php71
+  working_dir: /application
+  volumes:
+    - /home/snow/drone/${DRONE_REPO_NAME}/vendor:./vendor
+  commands:
+    - composer install
+    - vendor/bin/phpunit --testsuite "Package Test Suite" --debug
