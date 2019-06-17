@@ -5,7 +5,8 @@ steps:
 - name: setup
   image: docker
   volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
+  - name: docker
+    path: /var/run/docker.sock
   commands:
     - docker build --rm -t snowcookie/generate-schema-php71 ./docker/php71
 
@@ -13,7 +14,17 @@ steps:
   image: snowcookie/generate-schema-php71
   working_dir: /application
   volumes:
-    - /home/snow/drone/${DRONE_REPO_NAME}/vendor:./vendor
+  - name: vendor
+    path: ./vendor
   commands:
     - composer install
     - vendor/bin/phpunit --testsuite "Package Test Suite" --debug
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
+
+- name: vendor
+  host:
+    path: /home/snow/drone/${DRONE_REPO_NAME}/vendor
