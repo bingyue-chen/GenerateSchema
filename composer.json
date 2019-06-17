@@ -1,0 +1,43 @@
+{
+    "name": "snowcookie/generate-schema",
+    "description": "Generate schema from database",
+    "type": "libary",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "schema",
+        "database"
+    ],
+    "authors": [
+        {
+            "name": "snowcookie",
+            "email": "snow.shanalike@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.6.4",
+        "laravel/framework": "5.4.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.4.*",
+        "phpunit/phpunit": "~5.7",
+        "mockery/mockery": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Snowcookie\\GenerateSchema\\": "src/GenerateSchema/"
+        },
+        "classmap": [
+            "tests/migrations"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Snowcookie\\GenerateSchema\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
