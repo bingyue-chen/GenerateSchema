@@ -14,10 +14,8 @@ steps:
   image: snowcookie/generate-schema-php71:latest
   pull: if-not-exists
   volumes:
-  - name: docker
-    path: /var/run/docker.sock
   - name: vendor
-    path: ./vendor
+    path: vendor
   commands:
     - composer install
     - vendor/bin/phpunit --testsuite "Package Test Suite" --debug
