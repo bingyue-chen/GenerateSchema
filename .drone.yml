@@ -13,8 +13,10 @@ steps:
 - name: test
   image: snowcookie/generate-schema-php71:latest
   pull: if-not-exists
+  volumes:
+  - name: vendor
+    path: /drone/src/vendor
   commands:
-    - pwd
     - composer install
     - vendor/bin/phpunit --testsuite "Package Test Suite" --debug
 
