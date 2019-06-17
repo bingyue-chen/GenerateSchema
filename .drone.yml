@@ -11,8 +11,8 @@ steps:
     - docker build --rm -t snowcookie/generate-schema-php71 ./docker/php71
 
 - name: test
-  image: snowcookie/generate-schema-php71
-  working_dir: /application
+  image: snowcookie/generate-schema-php71:latest
+  pull: if-not-exists
   volumes:
   - name: docker
     path: /var/run/docker.sock
