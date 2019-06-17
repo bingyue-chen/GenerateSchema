@@ -1,7 +1,7 @@
 kind: pipeline
 name: generate-schema
 
-setups:
+steps:
 - name: setup
   image: docker
   volumes:
