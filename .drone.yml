@@ -27,7 +27,7 @@ steps:
   - name: vendor
     path: /drone/src/vendor
   commands:
-    - sleep 20s
+    - sleep 60s
     - vendor/bin/phpunit --testsuite "Package Test All Suite" --debug
 
 volumes:
