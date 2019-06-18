@@ -10,15 +10,6 @@ steps:
   commands:
     - docker build --rm -t snowcookie/generate-schema-php71 ./docker/php71
 
-- name: snowcookie-generate-schema-mysql
-  image: mysql:8.0
-  environment:
-    MYSQL_ROOT_PASSWORD: secret
-    MYSQL_DATABASE: homestead
-    MYSQL_USER: homestead
-    MYSQL_PASSWORD: secret
-  detach: true
-
 - name: test-without-database
   image: snowcookie/generate-schema-php71:latest
   pull: if-not-exists
@@ -36,7 +27,7 @@ steps:
   - name: vendor
     path: /drone/src/vendor
   commands:
-    - composer install
+    - sleep 20s
     - vendor/bin/phpunit --testsuite "Package Test All Suite" --debug
 
 volumes:
@@ -47,3 +38,12 @@ volumes:
 - name: vendor
   host:
     path: /home/snow/drone/${DRONE_REPO_NAME}/vendor
+
+services:
+- name: snowcookie-generate-schema-mysql
+  image: mysql:8.0
+  environment:
+    MYSQL_ROOT_PASSWORD: secret
+    MYSQL_DATABASE: homestead
+    MYSQL_USER: homestead
+    MYSQL_PASSWORD: secret
