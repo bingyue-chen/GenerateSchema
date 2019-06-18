@@ -32,7 +32,13 @@ public function register()
 php artisan vendor:publish --tag=generate-schema-command
 ```
 
+- generate scheam from command
+```
+php artisan tools:generate_schema_command --storage_disk=local
+```
+
 ## Support Database
+
 - Mysql 8.0
 
 ## Extend Database Manager
@@ -50,7 +56,18 @@ class CustomGeneratorDatabaseManager implements GeneratorDatabaseManager
 ```
 
 ## Support Renderer
+
 - Plain text txt files
+migrations.txt
+```
++-----------+------------------+-----+----------+---------+-----------------+------------+
+| name      | type             | key | nullable | default | constraint_name | referenced |
++-----------+------------------+-----+----------+---------+-----------------+------------+
+| id        | int(10) unsigned | PRI | NO       |         |                 |            |
+| migration | varchar(255)     |     | NO       |         |                 |            |
+| batch     | int(11)          |     | NO       |         |                 |            |
++-----------+------------------+-----+----------+---------+-----------------+------------+
+```
 
 ## Extend Renderer
 
