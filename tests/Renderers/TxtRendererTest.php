@@ -8,8 +8,6 @@ use Snowcookie\GenerateSchema\Test\TestCase;
 
 class TxtRendererTest extends TestCase
 {
-    protected $root_path = '';
-
     protected function setUp()
     {
         parent::setUp();
@@ -18,7 +16,7 @@ class TxtRendererTest extends TestCase
     public function testRenderSuccess()
     {
         $txt_render  = $this->app->make(TxtRenderer::class);
-        $driver_name = 'shema';
+        $driver_name = 'schema';
 
         Storage::fake($driver_name);
 

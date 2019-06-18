@@ -61,12 +61,12 @@ class Generator
         return $this->schmea_struct;
     }
 
-    public function render($path): bool
+    public function render($storage_driver): bool
     {
-        return $this->renderer->render($path, $this->database_name, $this->schmea_struct);
+        return $this->renderer->render($storage_driver, $this->database_name, $this->schmea_struct);
     }
 
-    public function setDefaultRenderer(GeneratorRenderer $renderer): self
+    public function setDefaultRenderer(): self
     {
         $this->renderer = app()->make(TxtRenderer::class);
 

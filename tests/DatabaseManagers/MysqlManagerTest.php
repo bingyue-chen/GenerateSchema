@@ -7,33 +7,11 @@ use Snowcookie\GenerateSchema\Test\TestCase;
 
 class MysqlManagerTest extends TestCase
 {
-    protected $database_name = 'homestead';
-
     protected function setUp()
     {
         parent::setUp();
 
         $this->refreshDatabase();
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('database.default', 'mysql');
-        $app['config']->set('database.connections.mysql', [
-            'driver'    => 'mysql',
-            'host'      => 'snowcookie-generate-schema-mysql',
-            'database'  => $this->database_name,
-            'username'  => 'homestead',
-            'password'  => 'secret',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'strict'    => false,
-        ]);
     }
 
     public function testGetConnectionSuccess()
@@ -96,9 +74,5 @@ class MysqlManagerTest extends TestCase
                 'referenced'      => '',
             ],
         ], $schema['migrations']);
-    }
-
-    private function clearDatabase()
-    {
     }
 }
