@@ -14,11 +14,11 @@ class MysqlManagerTest extends TestCase
         $this->refreshDatabase();
     }
 
-    public function testGetConnectionSuccess()
+    public function testGetConnectionNameSuccess()
     {
         $mysql_manager = $this->app->make(MysqlManager::class);
 
-        $connection = $mysql_manager->getConnection();
+        $connection = $mysql_manager->getConnectionName();
 
         $this->assertEquals('mysql', $connection);
     }

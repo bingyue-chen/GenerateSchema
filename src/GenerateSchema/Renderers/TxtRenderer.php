@@ -9,9 +9,9 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 class TxtRenderer implements GeneratorRenderer
 {
-    public function render(string $driver_name, string $database_name, array $schmea_struct): bool
+    public function render(string $disk_name, string $database_name, array $schmea_struct): bool
     {
-        $storage = Storage::disk($driver_name);
+        $storage = Storage::disk($disk_name);
         $buffer  = new BufferedOutput();
         $table   = new Table($buffer);
 

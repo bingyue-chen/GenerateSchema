@@ -14,7 +14,7 @@ class GenerateSchemaServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/Configs/generate-schema-command.php' => config_path('generate-schema-command.php'),
-        ]);
+        ], 'generate-schema-command');
 
         if ($this->app->runningInConsole()) {
             $this->commands([

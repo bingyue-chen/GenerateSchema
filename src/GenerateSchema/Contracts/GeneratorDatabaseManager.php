@@ -4,7 +4,7 @@ namespace Snowcookie\GenerateSchema\Contracts;
 
 interface GeneratorDatabaseManager
 {
-    public function getConnection(): string;
+    public function getConnectionName(): string;
 
     public function getAllTableName(string $database_name): array;
 

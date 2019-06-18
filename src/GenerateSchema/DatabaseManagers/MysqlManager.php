@@ -7,16 +7,22 @@ use Snowcookie\GenerateSchema\Contracts\GeneratorDatabaseManager;
 
 class MysqlManager implements GeneratorDatabaseManager
 {
-    protected $connection = 'mysql';
+    protected $connection_name = 'mysql';
+    protected $connection      = null;
 
-    public function getConnection(): string
+    public function __construct()
     {
-        return $this->connection;
+        $this->connection = DB::connection($this->connection_name);
+    }
+
+    public function getConnectionName(): string
+    {
+        return $this->connection_name;
     }
 
     public function getAllTableName(string $database_name): array
     {
-        return DB::table('information_schema.tables')->select(['table_name'])->where('table_schema', $database_name)->get()->pluck('TABLE_NAME')->all();
+        return $this->connection->table('information_schema.tables')->select(['table_name'])->where('table_schema', $database_name)->get()->pluck('TABLE_NAME')->all();
     }
 
     public function getEachTableColumnType(string $database_name, array $database_tables): array
@@ -26,11 +32,11 @@ class MysqlManager implements GeneratorDatabaseManager
         foreach ($database_tables as $table_name) {
             $schmea_struct[$table_name] = [];
 
-            $columns_describe = DB::select('describe '.$table_name);
+            $columns_describe = $this->connection->select('describe '.$table_name);
 
-            $columns_unique = DB::table('information_schema.key_column_usage')->where('table_name', $table_name)->where('table_schema', $database_name)->where('constraint_name', 'like', '%unique%')->select(['column_name', 'constraint_name'])->get()->keyBy('column_name');
+            $columns_unique = $this->connection->table('information_schema.key_column_usage')->where('table_name', $table_name)->where('table_schema', $database_name)->where('constraint_name', 'like', '%unique%')->select(['column_name', 'constraint_name'])->get()->keyBy('column_name');
 
-            $columns_foreign = DB::table('information_schema.key_column_usage')->where('table_name', $table_name)->where('table_schema', $database_name)->where('constraint_name', 'like', '%foreign%')->select(['column_name', 'referenced_table_name', 'referenced_column_name', 'constraint_name'])->get()->keyBy('column_name');
+            $columns_foreign = $this->connection->table('information_schema.key_column_usage')->where('table_name', $table_name)->where('table_schema', $database_name)->where('constraint_name', 'like', '%foreign%')->select(['column_name', 'referenced_table_name', 'referenced_column_name', 'constraint_name'])->get()->keyBy('column_name');
 
             foreach ($columns_describe as $column_describe) {
                 $is_unique  = $columns_unique->has($column_describe->Field);

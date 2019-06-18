@@ -15,12 +15,12 @@ class TxtRendererTest extends TestCase
 
     public function testRenderSuccess()
     {
-        $txt_render  = $this->app->make(TxtRenderer::class);
-        $driver_name = 'schema';
+        $txt_render = $this->app->make(TxtRenderer::class);
+        $disk_name  = 'schema';
 
-        Storage::fake($driver_name);
+        Storage::fake($disk_name);
 
-        $render_response = $txt_render->render($driver_name, 'homestead', ['migrations' => [[
+        $render_response = $txt_render->render($disk_name, 'homestead', ['migrations' => [[
                 'name'            => 'id',
                 'type'            => 'int(10) unsigned',
                 'key'             => 'PRI',
@@ -30,6 +30,6 @@ class TxtRendererTest extends TestCase
                 'referenced'      => '',
             ]]]);
 
-        Storage::disk($driver_name)->assertExists('migrations.txt');
+        Storage::disk($disk_name)->assertExists('migrations.txt');
     }
 }

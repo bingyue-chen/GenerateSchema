@@ -18,7 +18,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify database manager binding to generator,
-    | only when `use_default` is false.
+    | require `use_default` set false.
     |
     */
 
@@ -30,7 +30,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify renderer binding to generator,
-    | only when `use_default` is false.
+    | require `use_default` set false.
     |
     */
 

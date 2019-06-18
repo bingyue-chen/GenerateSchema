@@ -61,9 +61,9 @@ class Generator
         return $this->schmea_struct;
     }
 
-    public function render($storage_driver): bool
+    public function render($storage_disk): bool
     {
-        return $this->renderer->render($storage_driver, $this->database_name, $this->schmea_struct);
+        return $this->renderer->render($storage_disk, $this->database_name, $this->schmea_struct);
     }
 
     public function setDefaultRenderer(): self
@@ -100,7 +100,7 @@ class Generator
 
     private function setDataBase(string $database_name = '')
     {
-        $this->database_name = $database_name ?: config('database.connections.'.$this->database_manager->getConnection().'.database');
+        $this->database_name = $database_name ?: config('database.connections.'.$this->database_manager->getConnectionName().'.database');
     }
 
     private function getAllTableName()

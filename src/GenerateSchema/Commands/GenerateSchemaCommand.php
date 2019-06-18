@@ -12,9 +12,9 @@ class GenerateSchemaCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'tool:generate_schema_command 
-                            {--DB|database= : Whether the database should be generated}
-                            {--SD|storage_driver= : Whether the storage should be schema render to}';
+    protected $signature = 'tools:generate_schema_command
+                            {--D|database= : Whether the database should be generated}
+                            {--S|storage_disk= : Whether the storage should be schema render to}';
 
     /**
      * The console command description.
@@ -84,9 +84,9 @@ class GenerateSchemaCommand extends Command
 
     protected function generate()
     {
-        $database       = $this->option('database')       ?? '';
-        $storage_driver = $this->option('storage_driver') ?? '';
+        $database     = $this->option('database')     ?? '';
+        $storage_disk = $this->option('storage_disk') ?? '';
 
-        $this->generator->generateSchema($database)->render($storage_driver);
+        $this->generator->generateSchema($database)->render($storage_disk);
     }
 }

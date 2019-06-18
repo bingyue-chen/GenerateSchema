@@ -21,12 +21,12 @@ class GenerateSchemaCommandTest extends TestCase
 
     public function testDefaultGenerateSuccess()
     {
-        $driver_name = 'schema';
+        $disk_name = 'schema';
 
-        Storage::fake($driver_name);
+        Storage::fake($disk_name);
 
-        $this->artisan('tool:generate_schema_command', ['--storage_driver' => $driver_name]);
+        $this->artisan('tool:generate_schema_command', ['--storage_disk' => $disk_name]);
 
-        Storage::disk($driver_name)->assertExists('migrations.txt');
+        Storage::disk($disk_name)->assertExists('migrations.txt');
     }
 }

@@ -14,7 +14,7 @@ class GenerateSchemaTest extends TestCase
         $mock_database_manager = Mockery::mock(GeneratorDatabaseManager::class);
         $mock_renderer         = Mockery::mock(GeneratorRenderer::class);
 
-        $mock_database_manager->shouldReceive('getConnection')->times(1)->andReturn('mysql');
+        $mock_database_manager->shouldReceive('getConnectionName')->times(1)->andReturn('mysql');
         $mock_database_manager->shouldReceive('getAllTableName')->times(1)->andReturn(['migrations', 'users', 'password_resets', 'posts']);
         $mock_database_manager->shouldReceive('getEachTableColumnType')->times(1)->andReturn(['migrations' => [], 'users' => [], 'password_resets' => [], 'posts' => []]);
 
