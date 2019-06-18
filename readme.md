@@ -18,7 +18,7 @@ composer require --dev snowcookie/generate-schema
 ``` 
 public function register()
 {
-	...
+    ...
 
     if ($this->app->environment('local')) {
         $this->app->register('Snowcookie\GenerateSchema\GenerateSchemaServiceProvider');
@@ -50,7 +50,7 @@ use Snowcookie\GenerateSchema\Contracts\GeneratorDatabaseManager;
 
 class CustomGeneratorDatabaseManager implements GeneratorDatabaseManager
 {
-	...
+    ...
 }
 
 ```
@@ -58,7 +58,9 @@ class CustomGeneratorDatabaseManager implements GeneratorDatabaseManager
 ## Support Renderer
 
 - Plain text txt files
-migrations.txt
+
+> example: migrations.txt
+
 ```
 +-----------+------------------+-----+----------+---------+-----------------+------------+
 | name      | type             | key | nullable | default | constraint_name | referenced |
@@ -78,7 +80,7 @@ use Snowcookie\GenerateSchema\Contracts\GeneratorRenderer;
 
 class CustomGeneratorRenderer implements GeneratorRenderer
 {
-	...
+    ...
 }
 
 ```
