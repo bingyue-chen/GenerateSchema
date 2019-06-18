@@ -27,7 +27,7 @@ steps:
   - name: vendor
     path: /drone/src/vendor
   commands:
-    - sleep 60s
+    - sleep 20s
     - vendor/bin/phpunit --testsuite "Package Test All Suite" --debug
 
 volumes:
@@ -42,6 +42,8 @@ volumes:
 services:
 - name: snowcookie-generate-schema-mysql
   image: mysql:8.0
+  ports:
+    - 3306
   environment:
     MYSQL_ROOT_PASSWORD: secret
     MYSQL_DATABASE: homestead
