@@ -2,7 +2,7 @@
 
 [![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/master)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
 
-> Gernerate scheam form database
+> Gernerate scheam from database
 
 ## Requirement
 - Laravel 5.4
@@ -32,7 +32,7 @@ public function register()
 php artisan vendor:publish --tag=generate-schema-command
 ```
 
-- generate scheam from command
+- generate scheam with command
 ```
 php artisan tools:generate_schema_command --storage_disk=local
 ```
