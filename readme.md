@@ -9,15 +9,22 @@
 
 ## Usage
 
-- add service provider to config/app.php
+- add packeage
+```
+composer require --dev snowcookie/generate-schema
+```
+
+- add conditionally loading service provider to app/Providers/AppServiceProvider.php
 ``` 
-	'providers' => [
+public function register()
+{
 	...
 
-		Snowcookie\GenerateSchema\GenerateSchemaServiceProvider::class,
-
-	...
-	],
+    if ($this->app->environment('local')) {
+        $this->app->register('Snowcookie\GenerateSchema\GenerateSchemaServiceProvider');
+    }
+    ...
+}
 ```
 
 - publish config file
