@@ -41,13 +41,6 @@
             "Snowcookie\\GenerateSchema\\Test\\": "tests/"
         }
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Snowcookie\\GenerateSchema\\GenerateSchemaServiceProvider"
-            ]
-        }
-    },
     "config": {
         "sort-packages": true
     }

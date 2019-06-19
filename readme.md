@@ -1,6 +1,6 @@
 # GenerateSchema
 
-[![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/master)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
+[![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/2.x)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
 
 > Gernerate scheam from database
 
