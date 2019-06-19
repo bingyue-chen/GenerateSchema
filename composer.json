@@ -17,13 +17,16 @@
     "homepage": "https://github.com/snowshana/GenerateSchema",
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.1",
-        "laravel/framework": "5.4.*"
+        "php": ">=7.3",
+        "illuminate/support": "5.8.*",
+        "illuminate/database": "5.8.*",
+        "illuminate/console": "5.8.*",
+        "illuminate/filesystem": "5.8.*"
     },
     "require-dev": {
         "mockery/mockery": "^1.2",
-        "orchestra/testbench": "3.4.*",
-        "phpunit/phpunit": "^7"
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "8.*"
     },
     "autoload": {
         "psr-4": {
@@ -36,6 +39,13 @@
     "autoload-dev": {
         "psr-4": {
             "Snowcookie\\GenerateSchema\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Snowcookie\\GenerateSchema\\GenerateSchemaServiceProvider"
+            ]
         }
     },
     "config": {

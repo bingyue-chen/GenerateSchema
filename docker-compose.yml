@@ -11,11 +11,11 @@ services:
         - MYSQL_USER=homestead
         - MYSQL_PASSWORD=secret
 
-    php71:
+    php73:
       build:
         context: .
-        dockerfile: docker/php71/Dockerfile
-      container_name: snowcookie-generate-schema-php71
+        dockerfile: docker/php73/Dockerfile
+      container_name: snowcookie-generate-schema-php73
       working_dir: /application
       volumes:
         - ./:/application

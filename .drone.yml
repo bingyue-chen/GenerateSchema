@@ -8,27 +8,27 @@ steps:
   - name: docker
     path: /var/run/docker.sock
   commands:
-    - docker build --rm -t snowcookie/generate-schema-php71 ./docker/php71
+    - docker build --rm -t snowcookie/generate-schema-php73 ./docker/php73
 
 - name: test-without-database
-  image: snowcookie/generate-schema-php71:latest
+  image: snowcookie/generate-schema-php73:latest
   pull: if-not-exists
   volumes:
   - name: vendor
     path: /drone/src/vendor
   commands:
     - composer install
-    - vendor/bin/phpunit --testsuite "Package Test Suite" --debug
+    - vendor/bin/phpunit --testsuite "Package Test Without Database Suite" -v --debug
 
 - name: test-all
-  image: snowcookie/generate-schema-php71:latest
+  image: snowcookie/generate-schema-php73:latest
   pull: if-not-exists
   volumes:
   - name: vendor
     path: /drone/src/vendor
   commands:
     - sleep 20s
-    - vendor/bin/phpunit --testsuite "Package Test All Suite" --debug
+    - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
 
 volumes:
 - name: docker

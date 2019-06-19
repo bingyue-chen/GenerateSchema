@@ -9,12 +9,12 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Package Test Suite">
+        <testsuite name="Package Test Without Database Suite">
             <directory suffix="Test.php">./tests</directory>
             <exclude>./tests/DatabaseManagers</exclude>
             <exclude>./tests/Commands</exclude>
         </testsuite>
-        <testsuite name="Package Test All Suite">
+        <testsuite name="Package Test Suite">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>

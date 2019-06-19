@@ -8,7 +8,7 @@ use Snowcookie\GenerateSchema\Test\TestCase;
 
 class TxtRendererTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
     }

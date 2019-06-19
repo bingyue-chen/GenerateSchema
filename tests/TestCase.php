@@ -8,7 +8,7 @@ class TestCase extends BaseTestCase
 {
     protected $database_name = 'homestead';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
     }
