@@ -40,6 +40,7 @@ php artisan tools:generate_schema_command --storage_disk=local
 ## Support Database
 
 - Mysql 8.0
+- Postgres 11.3
 
 ## Extend Database Manager
 

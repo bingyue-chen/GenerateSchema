@@ -2,9 +2,9 @@
 
 namespace Snowcookie\GenerateSchema\Test\DatabaseManagers;
 
-use Snowcookie\GenerateSchema\DatabaseManagers\MysqlManager;
+use Snowcookie\GenerateSchema\DatabaseManagers\PostgresManager;
 
-class MysqlManagerTest extends TestDatabaseManagerCase
+class PostgresManagerTest extends TestDatabaseManagerCase
 {
     /**
      * Define environment setup.
@@ -13,36 +13,35 @@ class MysqlManagerTest extends TestDatabaseManagerCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'mysql');
-        $app['config']->set('database.connections.mysql', [
-            'driver'    => 'mysql',
-            'host'      => 'snowcookie-generate-schema-mysql',
-            'port'      => '3306',
-            'database'  => $this->database_name,
-            'username'  => 'homestead',
-            'password'  => 'secret',
-            'charset'   => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix'    => '',
-            'strict'    => true,
-            'engine'    => null,
+        $app['config']->set('database.default', 'pgsql');
+        $app['config']->set('database.connections.pgsql', [
+            'driver'   => 'pgsql',
+            'host'     => 'snowcookie-generate-schema-postgres',
+            'port'     => '5432',
+            'database' => $this->database_name,
+            'username' => 'homestead',
+            'password' => 'secret',
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
+            'sslmode'  => 'prefer',
         ]);
     }
 
     public function testGetConnectionNameSuccess()
     {
-        $mysql_manager = $this->app->make(MysqlManager::class);
+        $mysql_manager = $this->app->make(PostgresManager::class);
 
         $connection_name = $mysql_manager->getConnectionName();
 
-        $this->assertEquals('mysql', $connection_name);
+        $this->assertEquals('pgsql', $connection_name);
     }
 
     public function testGetAllTableNameSuccess()
     {
-        $mysql_manager = $this->app->make(MysqlManager::class);
+        $pgsql_manager = $this->app->make(PostgresManager::class);
 
-        $tables = $mysql_manager->getAllTableName($this->database_name);
+        $tables = $pgsql_manager->getAllTableName($this->database_name);
 
         $this->assertContains('migrations', $tables);
         $this->assertContains('users', $tables);
@@ -52,22 +51,26 @@ class MysqlManagerTest extends TestDatabaseManagerCase
 
     public function testGetEachTableColumnTypeSuccess()
     {
-        $mysql_manager = $this->app->make(MysqlManager::class);
+        $pgsql_manager = $this->app->make(PostgresManager::class);
+
+        $expected_schema_struct = [];
+
+        $actual_schema_struct = $pgsql_manager->getEachTableColumnType($this->database_name, ['migrations', 'users', 'password_resets', 'posts']);
 
         $expected_schema_struct = [
             'migrations' => [
                 [
                     'name'            => 'id',
-                    'type'            => 'int(10) unsigned',
+                    'type'            => 'integer',
                     'key'             => 'PRI',
                     'nullable'        => 'NO',
-                    'default'         => '',
+                    'default'         => "nextval('migrations_id_seq'::regclass)",
                     'constraint_name' => '',
                     'referenced'      => '',
                 ],
                 [
                     'name'            => 'migration',
-                    'type'            => 'varchar(255)',
+                    'type'            => 'character varying(255)',
                     'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -76,7 +79,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'batch',
-                    'type'            => 'int(11)',
+                    'type'            => 'integer',
                     'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -87,16 +90,16 @@ class MysqlManagerTest extends TestDatabaseManagerCase
             'users' => [
                 [
                     'name'            => 'id',
-                    'type'            => 'int(10) unsigned',
+                    'type'            => 'integer',
                     'key'             => 'PRI',
                     'nullable'        => 'NO',
-                    'default'         => null,
+                    'default'         => "nextval('users_id_seq'::regclass)",
                     'constraint_name' => '',
                     'referenced'      => '',
                 ],
                 [
                     'name'            => 'name',
-                    'type'            => 'varchar(255)',
+                    'type'            => 'character varying(255)',
                     'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -105,8 +108,8 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'email',
-                    'type'            => 'varchar(255)',
-                    'key'             => 'UNI',
+                    'type'            => 'character varying(255)',
+                    'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => 'users_email_unique',
@@ -114,7 +117,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'password',
-                    'type'            => 'varchar(255)',
+                    'type'            => 'character varying(255)',
                     'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -123,7 +126,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'remember_token',
-                    'type'            => 'varchar(100)',
+                    'type'            => 'character varying(100)',
                     'key'             => '',
                     'nullable'        => 'YES',
                     'default'         => null,
@@ -132,7 +135,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'created_at',
-                    'type'            => 'timestamp',
+                    'type'            => 'timestamp without time zone',
                     'key'             => '',
                     'nullable'        => 'YES',
                     'default'         => null,
@@ -141,7 +144,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'updated_at',
-                    'type'            => 'timestamp',
+                    'type'            => 'timestamp without time zone',
                     'key'             => '',
                     'nullable'        => 'YES',
                     'default'         => null,
@@ -152,8 +155,8 @@ class MysqlManagerTest extends TestDatabaseManagerCase
             'password_resets' => [
                 [
                     'name'            => 'email',
-                    'type'            => 'varchar(255)',
-                    'key'             => 'MUL',
+                    'type'            => 'character varying(255)',
+                    'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => '',
@@ -161,7 +164,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'token',
-                    'type'            => 'varchar(255)',
+                    'type'            => 'character varying(255)',
                     'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -170,7 +173,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'created_at',
-                    'type'            => 'timestamp',
+                    'type'            => 'timestamp without time zone',
                     'key'             => '',
                     'nullable'        => 'YES',
                     'default'         => null,
@@ -181,17 +184,17 @@ class MysqlManagerTest extends TestDatabaseManagerCase
             'posts' => [
                 [
                     'name'            => 'id',
-                    'type'            => 'int(10) unsigned',
+                    'type'            => 'integer',
                     'key'             => 'PRI',
                     'nullable'        => 'NO',
-                    'default'         => null,
+                    'default'         => "nextval('posts_id_seq'::regclass)",
                     'constraint_name' => '',
                     'referenced'      => '',
                 ],
                 [
                     'name'            => 'user_id',
-                    'type'            => 'int(10) unsigned',
-                    'key'             => 'MUL',
+                    'type'            => 'integer',
+                    'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => 'posts_user_id_foreign',
@@ -199,7 +202,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'title',
-                    'type'            => 'varchar(255)',
+                    'type'            => 'character varying(255)',
                     'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -208,7 +211,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'content',
-                    'type'            => 'varchar(255)',
+                    'type'            => 'character varying(255)',
                     'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -217,7 +220,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'created_at',
-                    'type'            => 'timestamp',
+                    'type'            => 'timestamp without time zone',
                     'key'             => '',
                     'nullable'        => 'YES',
                     'default'         => null,
@@ -226,7 +229,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'updated_at',
-                    'type'            => 'timestamp',
+                    'type'            => 'timestamp without time zone',
                     'key'             => '',
                     'nullable'        => 'YES',
                     'default'         => null,
@@ -235,8 +238,6 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
             ],
         ];
-
-        $actual_schema_struct = $mysql_manager->getEachTableColumnType($this->database_name, ['migrations', 'users', 'password_resets', 'posts']);
 
         $this->assertSchemaStruct($expected_schema_struct, $actual_schema_struct);
     }

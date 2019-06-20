@@ -49,3 +49,12 @@ services:
     MYSQL_DATABASE: homestead
     MYSQL_USER: homestead
     MYSQL_PASSWORD: secret
+
+- name: snowcookie-generate-schema-postgres
+  image: postgres:11.3
+  ports:
+    - 5432
+  environment:
+    POSTGRES_DB: homestead
+    POSTGRES_PASSWORD: secret
+    POSTGRES_USER: homestead

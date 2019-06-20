@@ -1,9 +1,10 @@
 FROM php:7.3.6-cli-alpine3.9
 
 # Install php extensions and php composer
-RUN apk add --no-cache libzip-dev \
+RUN apk add --no-cache libzip-dev postgresql-libs postgresql-dev \
  && docker-php-ext-configure zip --with-libzip=/usr/include \
- && docker-php-ext-install -j$(nproc) pdo pdo_mysql mbstring tokenizer zip \
+ && docker-php-ext-install -j$(nproc) pdo pdo_mysql pdo_pgsql mbstring tokenizer zip \
+ && apk del postgresql-dev \
  && EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)" \
  && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
  && php -r "if (hash_file('sha384', 'composer-setup.php') === '$EXPECTED_SIGNATURE') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
