@@ -1,0 +1,10 @@
+docker/ export-ignore
+.drone.yml export-ignore
+.editorconfig export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore
+.php_cs export-ignore
+docker-compose.yml
+phpunit.xml.dist export-ignore
+
+* text=auto eol=lf

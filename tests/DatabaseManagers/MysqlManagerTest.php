@@ -13,20 +13,9 @@ class MysqlManagerTest extends TestDatabaseManagerCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        parent::getEnvironmentSetUp($app);
+
         $app['config']->set('database.default', 'mysql');
-        $app['config']->set('database.connections.mysql', [
-            'driver'    => 'mysql',
-            'host'      => 'snowcookie-generate-schema-mysql',
-            'port'      => '3306',
-            'database'  => $this->database_name,
-            'username'  => 'homestead',
-            'password'  => 'secret',
-            'charset'   => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix'    => '',
-            'strict'    => true,
-            'engine'    => null,
-        ]);
     }
 
     public function testGetConnectionNameSuccess()

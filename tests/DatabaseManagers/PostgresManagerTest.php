@@ -13,19 +13,9 @@ class PostgresManagerTest extends TestDatabaseManagerCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        parent::getEnvironmentSetUp($app);
+
         $app['config']->set('database.default', 'pgsql');
-        $app['config']->set('database.connections.pgsql', [
-            'driver'   => 'pgsql',
-            'host'     => 'snowcookie-generate-schema-postgres',
-            'port'     => '5432',
-            'database' => $this->database_name,
-            'username' => 'homestead',
-            'password' => 'secret',
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
-            'sslmode'  => 'prefer',
-        ]);
     }
 
     public function testGetConnectionNameSuccess()
@@ -52,10 +42,6 @@ class PostgresManagerTest extends TestDatabaseManagerCase
     public function testGetEachTableColumnTypeSuccess()
     {
         $pgsql_manager = $this->app->make(PostgresManager::class);
-
-        $expected_schema_struct = [];
-
-        $actual_schema_struct = $pgsql_manager->getEachTableColumnType($this->database_name, ['migrations', 'users', 'password_resets', 'posts']);
 
         $expected_schema_struct = [
             'migrations' => [
@@ -238,6 +224,8 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                 ],
             ],
         ];
+
+        $actual_schema_struct = $pgsql_manager->getEachTableColumnType($this->database_name, ['migrations', 'users', 'password_resets', 'posts']);
 
         $this->assertSchemaStruct($expected_schema_struct, $actual_schema_struct);
     }
