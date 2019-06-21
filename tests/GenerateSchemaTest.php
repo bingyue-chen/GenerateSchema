@@ -45,6 +45,6 @@ class GenerateSchemaTest extends TestCase
 
         $render_response = $generator->render('');
 
-        $this->assertEquals(true, $render_response);
+        $this->assertTrue($render_response);
     }
 }

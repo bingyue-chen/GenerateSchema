@@ -8,11 +8,10 @@ $finder = PhpCsFixer\Finder::create()
 
 return PhpCsFixer\Config::create()
     ->setRules([
-        '@PSR1' => true,
-        '@PSR2' => true,
         '@Symfony' => true,
+        '@Symfony:risky' => true,
         'binary_operator_spaces' => ['default' => 'align_single_space_minimal'],
-        'ordered_imports' => true,
     ])
+    ->setRiskyAllowed('yes')
     ->setFinder($finder)
     ->setUsingCache(true);
