@@ -23,7 +23,13 @@ class MysqlManager implements GeneratorDatabaseManager
 
     public function getAllTableName(string $database_name): array
     {
-        return $this->connection->table('information_schema.tables')->select(['table_name'])->where('table_schema', $database_name)->get()->pluck('TABLE_NAME')->all();
+        return $this->connection
+            ->table('information_schema.tables')
+            ->select(['table_name'])
+            ->where('table_schema', $database_name)
+            ->get()
+            ->pluck('TABLE_NAME')
+            ->all();
     }
 
     public function getEachTableColumnType(string $database_name, array $database_tables): array
@@ -70,6 +76,13 @@ class MysqlManager implements GeneratorDatabaseManager
     {
         return $this->connection
             ->table('information_schema.columns')
+            ->select([
+                'column_name',
+                'column_type',
+                'column_key',
+                'is_nullable',
+                'column_default',
+            ])
             ->where('table_schema', $database_name)
             ->where('table_name', $table_name)
             ->orderBy('ordinal_position', 'asc')

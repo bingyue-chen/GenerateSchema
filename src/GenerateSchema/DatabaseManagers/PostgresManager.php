@@ -23,7 +23,12 @@ class PostgresManager implements GeneratorDatabaseManager
 
     public function getAllTableName(string $database_name): array
     {
-        return $this->connection->table('information_schema.tables')->select(['table_name'])->where('table_catalog', $database_name)->pluck('table_name')->all();
+        return $this->connection
+            ->table('information_schema.tables')
+            ->select(['table_name'])
+            ->where('table_catalog', $database_name)
+            ->pluck('table_name')
+            ->all();
     }
 
     public function getEachTableColumnType(string $database_name, array $database_tables): array
@@ -76,11 +81,18 @@ class PostgresManager implements GeneratorDatabaseManager
     protected function getColumnDescribe(string $database_name, string $table_name): Collection
     {
         return $this->connection
-                ->table('information_schema.columns')
-                ->where('table_catalog', $database_name)
-                ->where('table_name', $table_name)
-                ->orderBy('ordinal_position', 'asc')
-                ->get();
+            ->table('information_schema.columns')
+            ->select([
+                'column_name',
+                'data_type',
+                'character_maximum_length',
+                'is_nullable',
+                'column_default',
+            ])
+            ->where('table_catalog', $database_name)
+            ->where('table_name', $table_name)
+            ->orderBy('ordinal_position', 'asc')
+            ->get();
     }
 
     protected function getColumnPrimaryKey(string $database_name, string $table_name): Collection

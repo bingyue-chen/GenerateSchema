@@ -2,7 +2,7 @@
 
 [![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/2.x)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
 
-> Gernerate scheam from database
+> Gernerate schema from database
 
 ## Requirement
 - Laravel 5.8
