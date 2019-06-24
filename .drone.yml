@@ -10,7 +10,7 @@ steps:
   commands:
     - docker build --rm -t snowcookie/generate-schema-php73 ./docker/php73
 
-- name: test-without-database
+- name: test
   image: snowcookie/generate-schema-php73:latest
   pull: if-not-exists
   volumes:
@@ -18,16 +18,7 @@ steps:
     path: /drone/src/vendor
   commands:
     - composer install
-    - vendor/bin/phpunit --testsuite "Package Test Without Database Suite" -v --debug
-
-- name: test-all
-  image: snowcookie/generate-schema-php73:latest
-  pull: if-not-exists
-  volumes:
-  - name: vendor
-    path: /drone/src/vendor
-  commands:
-    - sleep 20s
+    - sleep 10s
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
 
 volumes:
