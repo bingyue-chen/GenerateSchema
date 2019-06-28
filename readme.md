@@ -39,8 +39,8 @@ php artisan tools:generate_schema_command --storage_disk=local
 
 ## Support Database
 
-- Mysql 8.0
-- Postgres 11.3
+- Mysql 8.0     (MysqlManager)
+- Postgres 11.3 (PostgresManager)
 
 ## Extend Database Manager
 
@@ -58,7 +58,7 @@ class CustomGeneratorDatabaseManager implements GeneratorDatabaseManager
 
 ## Support Renderer
 
-- Plain text txt files
+- Plain text (TxtRenderer, per table one file)
 
 > example: migrations.txt
 
@@ -71,6 +71,9 @@ class CustomGeneratorDatabaseManager implements GeneratorDatabaseManager
 | batch     | int(11)          |     | NO       |         |                 |            |
 +-----------+------------------+-----+----------+---------+-----------------+------------+
 ```
+
+- Csv  (CsvRenderer, per table one file, delimiter `,`)
+- Xlsx (XlsxRenderer, one file, per table one sheet)
 
 ## Extend Renderer
 

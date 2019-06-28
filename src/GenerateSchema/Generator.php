@@ -5,6 +5,7 @@ namespace Snowcookie\GenerateSchema;
 use Snowcookie\GenerateSchema\Contracts\GeneratorDatabaseManager;
 use Snowcookie\GenerateSchema\Contracts\GeneratorRenderer;
 use Snowcookie\GenerateSchema\DatabaseManagers\MysqlManager;
+use Snowcookie\GenerateSchema\DatabaseManagers\PostgresManager;
 use Snowcookie\GenerateSchema\Renderers\TxtRenderer;
 
 class Generator
@@ -93,6 +94,7 @@ class Generator
 
         $database_manager_class = ([
             'mysql' => MysqlManager::class,
+            'pgsql' => PostgresManager::class,
         ])[$connection];
 
         $this->database_manager = app()->make($database_manager_class);

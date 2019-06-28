@@ -17,7 +17,7 @@ class CsvRenderer implements GeneratorRenderer
         $temp_dir = '/tmp';
 
         foreach ($schmea_struct as $table_name => $table_column_schema) {
-            if (is_array($table_column_schema) && !empty($table_column_schema)) {
+            if (\is_array($table_column_schema) && !empty($table_column_schema)) {
                 $file_path = $temp_dir.'/'.$table_name.'.csv';
 
                 $rows = [];

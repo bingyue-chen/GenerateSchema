@@ -16,7 +16,7 @@ class TxtRenderer implements GeneratorRenderer
         $table   = new Table($buffer);
 
         foreach ($schmea_struct as $table_name => $table_column_schema) {
-            if (is_array($table_column_schema) && !empty($table_column_schema)) {
+            if (\is_array($table_column_schema) && !empty($table_column_schema)) {
                 $headers = array_keys($table_column_schema[0]);
 
                 $table->setHeaders($headers)->setRows($table_column_schema)->render();

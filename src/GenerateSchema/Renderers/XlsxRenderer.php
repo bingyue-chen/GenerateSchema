@@ -21,7 +21,7 @@ class XlsxRenderer implements GeneratorRenderer
         $first_sheet = true;
 
         foreach ($schmea_struct as $table_name => $table_column_schema) {
-            if (is_array($table_column_schema) && !empty($table_column_schema)) {
+            if (\is_array($table_column_schema) && !empty($table_column_schema)) {
                 if (!$first_sheet) {
                     $xlsx_writer->addNewSheetAndMakeItCurrent();
                 } else {
