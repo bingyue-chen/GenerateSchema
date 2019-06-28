@@ -3,10 +3,10 @@
 namespace Snowcookie\GenerateSchema\Test\Renderers;
 
 use Illuminate\Support\Facades\Storage;
-use Snowcookie\GenerateSchema\Renderers\TxtRenderer;
+use Snowcookie\GenerateSchema\Renderers\CsvRenderer;
 use Snowcookie\GenerateSchema\Test\TestCase;
 
-class TxtRendererTest extends TestCase
+class CsvRendererTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -15,7 +15,7 @@ class TxtRendererTest extends TestCase
 
     public function testRenderSuccess()
     {
-        $txt_render = $this->app->make(TxtRenderer::class);
+        $txt_render = $this->app->make(CsvRenderer::class);
         $disk_name  = 'schema';
 
         Storage::fake($disk_name);
@@ -34,6 +34,6 @@ class TxtRendererTest extends TestCase
             ],
         ]);
 
-        Storage::disk($disk_name)->assertExists('migrations.txt');
+        Storage::disk($disk_name)->assertExists('migrations.csv');
     }
 }

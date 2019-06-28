@@ -2,8 +2,7 @@ FROM php:7.3.6-cli-alpine3.9
 
 # Install php extensions and php composer
 RUN apk add --no-cache libzip-dev postgresql-libs postgresql-dev \
- && docker-php-ext-configure zip --with-libzip=/usr/include \
- && docker-php-ext-install -j$(nproc) pdo pdo_mysql pdo_pgsql mbstring tokenizer zip \
+ && docker-php-ext-install -j$(nproc) pdo_mysql pdo_pgsql zip \
  && apk del postgresql-dev \
  && EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)" \
  && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

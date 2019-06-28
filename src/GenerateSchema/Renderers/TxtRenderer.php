@@ -16,11 +16,15 @@ class TxtRenderer implements GeneratorRenderer
         $table   = new Table($buffer);
 
         foreach ($schmea_struct as $table_name => $table_column_schema) {
-            $headers = array_keys($table_column_schema[0]);
+            if (is_array($table_column_schema) && !empty($table_column_schema)) {
+                $headers = array_keys($table_column_schema[0]);
 
-            $table->setHeaders($headers)->setRows($table_column_schema)->render();
+                $table->setHeaders($headers)->setRows($table_column_schema)->render();
 
-            $table_schema_txt_style = $buffer->fetch();
+                $table_schema_txt_style = $buffer->fetch();
+            } else {
+                $table_schema_txt_style = '';
+            }
 
             $storage->put($table_name.'.txt', $table_schema_txt_style);
         }

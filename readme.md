@@ -2,7 +2,7 @@
 
 [![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/2.x)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
 
-> Gernerate schema from database
+> Generate schema from database
 
 ## Requirement
 - Laravel 5.8
@@ -15,7 +15,7 @@ composer require --dev snowcookie/generate-schema
 ```
 
 - add conditionally loading service provider to app/Providers/AppServiceProvider.php
-``` 
+```
 public function register()
 {
     ...
