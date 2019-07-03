@@ -6,6 +6,7 @@ use Snowcookie\GenerateSchema\Contracts\GeneratorDatabaseManager;
 use Snowcookie\GenerateSchema\Contracts\GeneratorRenderer;
 use Snowcookie\GenerateSchema\DatabaseManagers\MysqlManager;
 use Snowcookie\GenerateSchema\DatabaseManagers\PostgresManager;
+use Snowcookie\GenerateSchema\Exceptions\DatabaseManagerException;
 use Snowcookie\GenerateSchema\Renderers\TxtRenderer;
 
 class Generator
@@ -90,19 +91,30 @@ class Generator
 
     private function resolveDatabaseManager()
     {
-        $connection = config('database.default');
+        $connection_name   = config('database.default');
+        $connection_driver = config('database.connections.'.$connection_name.'.driver');
 
         $database_manager_class = ([
             'mysql' => MysqlManager::class,
             'pgsql' => PostgresManager::class,
-        ])[$connection];
+        ])[$connection_driver] ?? null;
 
-        $this->database_manager = app()->make($database_manager_class);
+        if (null === $database_manager_class) {
+            throw new DatabaseManagerException('Not support database driver ['.$connection_driver.']. Please check database default config or specific custom database manager in [config/generate-schema-command.php] file.');
+        }
+
+        $this->database_manager = app()->makeWith($database_manager_class, [
+            'connection_name' => $connection_name,
+        ]);
     }
 
     private function setDataBase(string $database_name = '')
     {
         $this->database_name = $database_name ?: config('database.connections.'.$this->database_manager->getConnectionName().'.database');
+
+        if (empty($this->database_name)) {
+            throw new DatabaseManagerException('Empty database name to generate schema. Please check database connection ['.$this->database_manager->getConnectionName().'] config or specific not empty database name.');
+        }
     }
 
     private function getAllTableName()

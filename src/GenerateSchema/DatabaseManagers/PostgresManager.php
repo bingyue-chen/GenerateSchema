@@ -11,9 +11,10 @@ class PostgresManager implements GeneratorDatabaseManager
     protected $connection_name = 'pgsql';
     protected $connection      = null;
 
-    public function __construct()
+    public function __construct(string $connection_name = 'pgsql')
     {
-        $this->connection = DB::connection($this->connection_name);
+        $this->connection_name = $connection_name;
+        $this->connection      = DB::connection($this->connection_name);
     }
 
     public function getConnectionName(): string

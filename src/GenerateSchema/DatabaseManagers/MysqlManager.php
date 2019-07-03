@@ -11,9 +11,10 @@ class MysqlManager implements GeneratorDatabaseManager
     protected $connection_name = 'mysql';
     protected $connection      = null;
 
-    public function __construct()
+    public function __construct(string $connection_name = 'mysql')
     {
-        $this->connection = DB::connection($this->connection_name);
+        $this->connection_name = $connection_name;
+        $this->connection      = DB::connection($this->connection_name);
     }
 
     public function getConnectionName(): string
