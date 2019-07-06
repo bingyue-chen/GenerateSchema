@@ -63,13 +63,13 @@ class CustomGeneratorDatabaseManager implements GeneratorDatabaseManager
 > example: migrations.txt
 
 ```
-+-----------+------------------+-----+----------+---------+-----------------+------------+
-| name      | type             | key | nullable | default | constraint_name | referenced |
-+-----------+------------------+-----+----------+---------+-----------------+------------+
-| id        | int(10) unsigned | PRI | NO       |         |                 |            |
-| migration | varchar(255)     |     | NO       |         |                 |            |
-| batch     | int(11)          |     | NO       |         |                 |            |
-+-----------+------------------+-----+----------+---------+-----------------+------------+
++-----------+------------------+-----+----------+---------+-----------------+------------+------------+
+| name      | type             | key | nullable | default | constraint_name | index_name | referenced |
++-----------+------------------+-----+----------+---------+-----------------+------------+------------+
+| id        | int(10) unsigned | PRI | NO       |         |                 | PRIMARY    |            |
+| migration | varchar(255)     |     | NO       |         |                 |            |            |
+| batch     | int(11)          |     | NO       |         |                 |            |            |
++-----------+------------------+-----+----------+---------+-----------------+------------+------------+
 ```
 
 - Csv  (CsvRenderer, per table one file, delimiter `,`)

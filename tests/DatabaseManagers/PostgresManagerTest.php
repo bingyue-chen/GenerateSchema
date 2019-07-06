@@ -52,6 +52,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => "nextval('migrations_id_seq'::regclass)",
                     'constraint_name' => '',
+                    'index_name'      => 'migrations_pkey',
                     'referenced'      => '',
                 ],
                 [
@@ -61,6 +62,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
                 [
@@ -70,6 +72,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
             ],
@@ -81,6 +84,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => "nextval('users_id_seq'::regclass)",
                     'constraint_name' => '',
+                    'index_name'      => 'users_pkey',
                     'referenced'      => '',
                 ],
                 [
@@ -90,6 +94,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
                 [
@@ -99,6 +104,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => 'users_email_unique',
+                    'index_name'      => 'users_email_unique',
                     'referenced'      => '',
                 ],
                 [
@@ -108,6 +114,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
                 [
@@ -117,6 +124,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'YES',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
                 [
@@ -126,6 +134,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'YES',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
                 [
@@ -135,6 +144,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'YES',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
             ],
@@ -146,6 +156,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => 'password_resets_email_index',
                     'referenced'      => '',
                 ],
                 [
@@ -155,6 +166,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
                 [
@@ -164,6 +176,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'YES',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
             ],
@@ -175,6 +188,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => "nextval('posts_id_seq'::regclass)",
                     'constraint_name' => '',
+                    'index_name'      => 'posts_pkey',
                     'referenced'      => '',
                 ],
                 [
@@ -184,7 +198,8 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => 'posts_user_id_foreign',
-                    'referenced'      => 'users.id',
+                    'index_name'      => '',
+                    'referenced'      => 'users.id on update CASCADE on delete CASCADE',
                 ],
                 [
                     'name'            => 'title',
@@ -193,6 +208,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
                 [
@@ -202,6 +218,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'NO',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
                 [
@@ -211,6 +228,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'YES',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
                 [
@@ -220,6 +238,7 @@ class PostgresManagerTest extends TestDatabaseManagerCase
                     'nullable'        => 'YES',
                     'default'         => null,
                     'constraint_name' => '',
+                    'index_name'      => '',
                     'referenced'      => '',
                 ],
             ],
