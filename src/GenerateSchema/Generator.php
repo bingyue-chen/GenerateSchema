@@ -14,19 +14,6 @@ class Generator
     private $database_name;
     private $database_tables;
     private $database_manager;
-
-    //[
-    //  table_name => [
-    //      name,
-    //      type,
-    //      key,
-    //      nullable,
-    //      default,
-    //      constraint_name,
-    //      referenced
-    //  ]
-    //]
-    //
     private $schmea_struct;
     private $renderer;
 
