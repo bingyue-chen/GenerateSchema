@@ -32,7 +32,7 @@ services:
     MYSQL_DATABASE: homestead
     MYSQL_USER: homestead
     MYSQL_PASSWORD: secret
-  command: --default-authentication-plugin=mysql_native_password
+  command: [ "--default-authentication-plugin=mysql_native_password" ]
 
 - name: snowcookie-generate-schema-postgres
   image: postgres:11.3
