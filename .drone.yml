@@ -32,9 +32,7 @@ services:
     MYSQL_DATABASE: homestead
     MYSQL_USER: homestead
     MYSQL_PASSWORD: secret
-  volumes:
-  - name: mysql80-cnf
-    path: /etc/mysql/my.cnf
+  command: --default-authentication-plugin=mysql_native_password
 
 - name: snowcookie-generate-schema-postgres
   image: postgres:11.3
@@ -54,7 +52,3 @@ volumes:
 - name: vendor
   host:
     path: /home/snow/drone/${DRONE_REPO_NAME}/vendor
-
-- name: mysql80-cnf
-  host:
-    path: ./docker/mysql80/my.cnf
