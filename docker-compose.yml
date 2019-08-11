@@ -9,6 +9,8 @@ services:
         - MYSQL_DATABASE=homestead
         - MYSQL_USER=homestead
         - MYSQL_PASSWORD=secret
+      volumes:
+        - ./docker/mysql80/my.cnf:/etc/mysql/my.cnf
 
     postgres:
       image: postgres:11.3

@@ -21,14 +21,6 @@ steps:
     - sleep 10s
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
 
-volumes:
-- name: docker
-  host:
-    path: /var/run/docker.sock
-
-- name: vendor
-  host:
-    path: /home/snow/drone/${DRONE_REPO_NAME}/vendor
 
 services:
 - name: snowcookie-generate-schema-mysql
@@ -40,6 +32,9 @@ services:
     MYSQL_DATABASE: homestead
     MYSQL_USER: homestead
     MYSQL_PASSWORD: secret
+  volumes:
+  - name: mysql80-cnf
+    path: /etc/mysql/my.cnf
 
 - name: snowcookie-generate-schema-postgres
   image: postgres:11.3
@@ -49,3 +44,17 @@ services:
     POSTGRES_DB: homestead
     POSTGRES_PASSWORD: secret
     POSTGRES_USER: homestead
+
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
+
+- name: vendor
+  host:
+    path: /home/snow/drone/${DRONE_REPO_NAME}/vendor
+
+- name: mysql80-cnf
+  host:
+    path: ./docker/mysql80/my.cnf
