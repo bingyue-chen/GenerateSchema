@@ -1,11 +1,11 @@
 # GenerateSchema
 
-[![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/2.x)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
+[![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/3.x)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
 
 > Generate schema from database
 
 ## Requirement
-- Laravel 5.8
+- Laravel 6.0
 
 ## Usage
 
