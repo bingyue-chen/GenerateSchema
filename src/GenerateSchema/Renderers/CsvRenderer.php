@@ -3,6 +3,8 @@
 namespace Snowcookie\GenerateSchema\Renderers;
 
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Exception;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Snowcookie\GenerateSchema\Contracts\GeneratorRenderer;
 
@@ -14,11 +16,12 @@ class CsvRenderer implements GeneratorRenderer
 
         $csv_writer = WriterEntityFactory::createCSVWriter();
 
-        $temp_dir = '/tmp';
+        $files_path = [];
 
-        foreach ($schmea_struct as $table_name => $table_column_schema) {
-            if (\is_array($table_column_schema) && !empty($table_column_schema)) {
-                $file_path = $temp_dir.'/'.$table_name.'.csv';
+        try {
+            foreach ($schmea_struct as $table_name => $table_column_schema) {
+                $table_file_path     = $table_name.'.csv';
+                $tmp_table_file_path = '/tmp/'.$table_file_path;
 
                 $rows = [];
 
@@ -28,16 +31,26 @@ class CsvRenderer implements GeneratorRenderer
                     $rows[] = WriterEntityFactory::createRowFromArray($column_schema);
                 }
 
-                $csv_writer->openToFile($file_path)->addRows($rows)->close();
+                $csv_writer->openToFile($tmp_table_file_path)->addRows($rows)->close();
 
-                $file_content = file_get_contents($file_path);
-            } else {
-                $file_content = '';
+                $file_content = file_get_contents($tmp_table_file_path);
+
+                $storage->put($table_file_path, $file_content);
+
+                $files_path[] = $table_file_path;
             }
-
-            $storage->put($table_name.'.csv', $file_content);
+        } catch (Exception $e) {
+            $this->cleanFiles($storage, $files_path);
+            throw $e;
         }
 
         return true;
+    }
+
+    private function cleanFiles(FilesystemAdapter $storage, array $files_path)
+    {
+        foreach ($files_path as $path) {
+            $storage->delete($path);
+        }
     }
 }

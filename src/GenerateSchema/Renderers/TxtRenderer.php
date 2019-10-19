@@ -2,6 +2,8 @@
 
 namespace Snowcookie\GenerateSchema\Renderers;
 
+use Exception;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Snowcookie\GenerateSchema\Contracts\GeneratorRenderer;
 use Symfony\Component\Console\Helper\Table;
@@ -15,20 +17,34 @@ class TxtRenderer implements GeneratorRenderer
         $buffer  = new BufferedOutput();
         $table   = new Table($buffer);
 
-        foreach ($schmea_struct as $table_name => $table_column_schema) {
-            if (\is_array($table_column_schema) && !empty($table_column_schema)) {
+        $files_path = [];
+
+        try {
+            foreach ($schmea_struct as $table_name => $table_column_schema) {
+                $table_file_path = $table_name.'.txt';
+
                 $headers = array_keys($table_column_schema[0]);
 
                 $table->setHeaders($headers)->setRows($table_column_schema)->render();
 
                 $table_schema_txt_style = $buffer->fetch();
-            } else {
-                $table_schema_txt_style = '';
-            }
 
-            $storage->put($table_name.'.txt', $table_schema_txt_style);
+                $storage->put($table_file_path, $table_schema_txt_style);
+
+                $files_path[] = $table_file_path;
+            }
+        } catch (Exception $e) {
+            $this->cleanFiles($storage, $files_path);
+            throw $e;
         }
 
         return true;
+    }
+
+    private function cleanFiles(FilesystemAdapter $storage, array $files_path)
+    {
+        foreach ($files_path as $path) {
+            $storage->delete($path);
+        }
     }
 }
