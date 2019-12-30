@@ -18,7 +18,6 @@ steps:
     path: /drone/src/vendor
   commands:
     - composer install
-    - sleep 10s
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
   depends_on:
     - setupphp73
@@ -39,10 +38,10 @@ steps:
     path: /drone/src/vendor
   commands:
     - composer install
-    - sleep 10s
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
   depends_on:
     - setupphp74
+    - testphp73
 
 
 services:
