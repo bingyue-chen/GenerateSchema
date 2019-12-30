@@ -14,7 +14,7 @@ steps:
   image: snowcookie/generate-schema-php73:latest
   pull: if-not-exists
   volumes:
-  - name: vendor
+  - name: vendorphp73
     path: /drone/src/vendor
   commands:
     - composer install
@@ -35,7 +35,7 @@ steps:
   image: snowcookie/generate-schema-php74:latest
   pull: if-not-exists
   volumes:
-  - name: vendor
+  - name: vendorphp74
     path: /drone/src/vendor
   commands:
     - composer install
@@ -72,6 +72,10 @@ volumes:
   host:
     path: /var/run/docker.sock
 
-- name: vendor
+- name: vendorphp73
   host:
-    path: /home/snow/drone/${DRONE_REPO_NAME}/vendor
+    path: /home/snow/drone/${DRONE_REPO_NAME}/php73/vendor
+
+- name: vendorphp74
+  host:
+    path: /home/snow/drone/${DRONE_REPO_NAME}/php74/vendor
