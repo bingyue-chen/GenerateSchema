@@ -2,7 +2,7 @@ kind: pipeline
 name: generate-schema
 
 steps:
-- name: setup
+- name: setupphp73
   image: docker
   volumes:
   - name: docker
@@ -10,7 +10,7 @@ steps:
   commands:
     - docker build --rm -t snowcookie/generate-schema-php73 ./docker/php73
 
-- name: test
+- name: testphp73
   image: snowcookie/generate-schema-php73:latest
   pull: if-not-exists
   volumes:
@@ -20,11 +20,34 @@ steps:
     - composer install
     - sleep 10s
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
+  depends_on:
+    - setupphp73
+
+- name: setupphp74
+  image: docker
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  commands:
+    - docker build --rm -t snowcookie/generate-schema-php74 ./docker/php74
+
+- name: testphp74
+  image: snowcookie/generate-schema-php74:latest
+  pull: if-not-exists
+  volumes:
+  - name: vendor
+    path: /drone/src/vendor
+  commands:
+    - composer install
+    - sleep 10s
+    - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
+  depends_on:
+    - setupphp74
 
 
 services:
 - name: snowcookie-generate-schema-mysql
-  image: mysql:8.0
+  image: mysql:8
   ports:
     - 3306
   environment:
@@ -35,7 +58,7 @@ services:
   command: [ "--default-authentication-plugin=mysql_native_password" ]
 
 - name: snowcookie-generate-schema-postgres
-  image: postgres:11.3
+  image: postgres:11
   ports:
     - 5432
   environment:

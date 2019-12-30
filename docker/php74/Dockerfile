@@ -1,4 +1,4 @@
-FROM php:7.3-cli-alpine
+FROM php:7.4-cli-alpine
 
 # Install php extensions and php composer
 RUN apk add --no-cache libzip-dev postgresql-libs postgresql-dev \
