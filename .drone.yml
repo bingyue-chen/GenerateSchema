@@ -27,6 +27,7 @@ steps:
 kind: pipeline
 name: generate-schema-74
 
+steps:
 - name: setupphp74
   image: docker
   volumes:
