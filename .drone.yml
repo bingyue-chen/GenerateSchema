@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-name: generate-schema-73
+name: generate-schema
 
 steps:
 - name: setupphp73
@@ -22,6 +22,27 @@ steps:
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
   depends_on:
     - setupphp73
+
+- name: setupphp74
+  image: docker
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  commands:
+    - docker build --rm -t snowcookie/generate-schema-php74 ./docker/php74
+
+- name: testphp74
+  image: snowcookie/generate-schema-php74:latest
+  pull: if-not-exists
+  volumes:
+  - name: vendorphp74
+    path: /drone/src/vendor
+  commands:
+    - composer install
+    - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
+  depends_on:
+    - setupphp74
+    - testphp73
 
 services:
 - name: snowcookie-generate-schema-mysql
@@ -48,53 +69,6 @@ volumes:
 - name: vendorphp73
   host:
     path: /home/snow/drone/${DRONE_REPO_NAME}/php73/vendor
-
----
-kind: pipeline
-name: generate-schema-74
-
-steps:
-- name: setupphp74
-  image: docker
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
-  commands:
-    - docker build --rm -t snowcookie/generate-schema-php74 ./docker/php74
-
-- name: testphp74
-  image: snowcookie/generate-schema-php74:latest
-  pull: if-not-exists
-  volumes:
-  - name: vendorphp74
-    path: /drone/src/vendor
-  commands:
-    - composer install
-    - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
-  depends_on:
-    - setupphp74
-
-services:
-- name: snowcookie-generate-schema-mysql
-  image: mysql:8
-  environment:
-    MYSQL_ROOT_PASSWORD: secret
-    MYSQL_DATABASE: homestead
-    MYSQL_USER: homestead
-    MYSQL_PASSWORD: secret
-  command: [ "--default-authentication-plugin=mysql_native_password" ]
-
-- name: snowcookie-generate-schema-postgres
-  image: postgres:11
-  environment:
-    POSTGRES_DB: homestead
-    POSTGRES_PASSWORD: secret
-    POSTGRES_USER: homestead
-
-volumes:
-- name: docker
-  host:
-    path: /var/run/docker.sock
 
 - name: vendorphp74
   host:
