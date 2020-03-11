@@ -23,6 +23,36 @@ steps:
   depends_on:
     - setupphp73
 
+services:
+- name: snowcookie-generate-schema-mysql
+  image: mysql:8
+  ports:
+    - 3306
+  environment:
+    MYSQL_ROOT_PASSWORD: secret
+    MYSQL_DATABASE: homestead
+    MYSQL_USER: homestead
+    MYSQL_PASSWORD: secret
+  command: [ "--default-authentication-plugin=mysql_native_password" ]
+
+- name: snowcookie-generate-schema-postgres
+  image: postgres:11
+  ports:
+    - 5432
+  environment:
+    POSTGRES_DB: homestead
+    POSTGRES_PASSWORD: secret
+    POSTGRES_USER: homestead
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
+
+- name: vendorphp73
+  host:
+    path: /home/snow/drone/${DRONE_REPO_NAME}/php73/vendor
+
 ---
 kind: pipeline
 name: generate-schema-74
@@ -48,7 +78,6 @@ steps:
   depends_on:
     - setupphp74
 
----
 services:
 - name: snowcookie-generate-schema-mysql
   image: mysql:8
@@ -70,15 +99,10 @@ services:
     POSTGRES_PASSWORD: secret
     POSTGRES_USER: homestead
 
----
 volumes:
 - name: docker
   host:
     path: /var/run/docker.sock
-
-- name: vendorphp73
-  host:
-    path: /home/snow/drone/${DRONE_REPO_NAME}/php73/vendor
 
 - name: vendorphp74
   host:
