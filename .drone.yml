@@ -1,5 +1,6 @@
+---
 kind: pipeline
-name: generate-schema
+name: generate-schema-73
 
 steps:
 - name: setupphp73
@@ -22,6 +23,10 @@ steps:
   depends_on:
     - setupphp73
 
+---
+kind: pipeline
+name: generate-schema-74
+
 - name: setupphp74
   image: docker
   volumes:
@@ -41,9 +46,8 @@ steps:
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
   depends_on:
     - setupphp74
-    - testphp73
 
-
+---
 services:
 - name: snowcookie-generate-schema-mysql
   image: mysql:8
@@ -65,7 +69,7 @@ services:
     POSTGRES_PASSWORD: secret
     POSTGRES_USER: homestead
 
-
+---
 volumes:
 - name: docker
   host:

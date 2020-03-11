@@ -1,11 +1,15 @@
 # GenerateSchema
 
-[![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/3.x)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
+[![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/4.x)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
 
 > Generate schema from database
 
 ## Requirement
-- Laravel 6.0
+
+ Laravel  | GenerateSchema
+:---------|:----------------
+ 6.x      | 3.x
+ 7.x      | 4.x
 
 ## Usage
 
@@ -39,8 +43,8 @@ php artisan tools:generate_schema_command --storage_disk=local
 
 ## Support Database
 
-- Mysql 8.0     (MysqlManager)
-- Postgres 11.3 (PostgresManager)
+- Mysql 8     (MysqlManager)
+- Postgres 11 (PostgresManager)
 
 ## Extend Database Manager
 
