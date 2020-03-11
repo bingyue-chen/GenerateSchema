@@ -47,6 +47,7 @@ steps:
 services:
 - name: snowcookie-generate-schema-mysql
   image: mysql:8
+  pull: always
   environment:
     MYSQL_ROOT_PASSWORD: secret
     MYSQL_DATABASE: homestead
@@ -56,6 +57,7 @@ services:
 
 - name: snowcookie-generate-schema-postgres
   image: postgres:11
+  pull: always
   environment:
     POSTGRES_DB: homestead
     POSTGRES_PASSWORD: secret

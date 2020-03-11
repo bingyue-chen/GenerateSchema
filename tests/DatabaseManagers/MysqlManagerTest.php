@@ -47,7 +47,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
             'migrations' => [
                 [
                     'name'            => 'id',
-                    'type'            => 'int(10) unsigned',
+                    'type'            => 'int unsigned',
                     'key'             => 'PRI',
                     'nullable'        => 'NO',
                     'default'         => '',
@@ -67,7 +67,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'batch',
-                    'type'            => 'int(11)',
+                    'type'            => 'int',
                     'key'             => '',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -79,7 +79,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
             'users' => [
                 [
                     'name'            => 'id',
-                    'type'            => 'int(10) unsigned',
+                    'type'            => 'int unsigned',
                     'key'             => 'PRI',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -183,7 +183,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
             'posts' => [
                 [
                     'name'            => 'id',
-                    'type'            => 'int(10) unsigned',
+                    'type'            => 'int unsigned',
                     'key'             => 'PRI',
                     'nullable'        => 'NO',
                     'default'         => null,
@@ -193,7 +193,7 @@ class MysqlManagerTest extends TestDatabaseManagerCase
                 ],
                 [
                     'name'            => 'user_id',
-                    'type'            => 'int(10) unsigned',
+                    'type'            => 'int unsigned',
                     'key'             => 'MUL',
                     'nullable'        => 'NO',
                     'default'         => null,
