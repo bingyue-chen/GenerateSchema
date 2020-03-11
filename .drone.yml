@@ -26,8 +26,6 @@ steps:
 services:
 - name: snowcookie-generate-schema-mysql
   image: mysql:8
-  ports:
-    - 3306
   environment:
     MYSQL_ROOT_PASSWORD: secret
     MYSQL_DATABASE: homestead
@@ -37,8 +35,6 @@ services:
 
 - name: snowcookie-generate-schema-postgres
   image: postgres:11
-  ports:
-    - 5432
   environment:
     POSTGRES_DB: homestead
     POSTGRES_PASSWORD: secret
@@ -81,8 +77,6 @@ steps:
 services:
 - name: snowcookie-generate-schema-mysql
   image: mysql:8
-  ports:
-    - 3306
   environment:
     MYSQL_ROOT_PASSWORD: secret
     MYSQL_DATABASE: homestead
@@ -92,8 +86,6 @@ services:
 
 - name: snowcookie-generate-schema-postgres
   image: postgres:11
-  ports:
-    - 5432
   environment:
     POSTGRES_DB: homestead
     POSTGRES_PASSWORD: secret
