@@ -88,5 +88,7 @@ class GenerateSchemaCommand extends Command
         $storage_disk = $this->option('storage_disk') ?? '';
 
         $this->generator->generateSchema($database)->render($storage_disk);
+
+        $this->info('Generate schema compelete.');
     }
 }
