@@ -33,7 +33,7 @@ public function register()
 
 - publish config file
 ```
-php artisan vendor:publish --tag=generate-schema-command
+php artisan vendor:publish --tag=generate-schema
 ```
 
 - generate scheam with command
