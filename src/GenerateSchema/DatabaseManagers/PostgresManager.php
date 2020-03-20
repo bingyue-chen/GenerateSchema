@@ -29,6 +29,8 @@ class PostgresManager implements GeneratorDatabaseManager
             ->select(['table_name'])
             ->where('table_catalog', $database_name)
             ->where('table_type', 'BASE TABLE')
+            ->where('table_name', 'not like', 'pg_%')
+            ->where('table_name', 'not like', 'sql_%')
             ->get()
             ->pluck('table_name')
             ->all();
