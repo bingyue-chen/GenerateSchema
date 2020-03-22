@@ -48,7 +48,7 @@ class GenerateSchemaCommandTest extends TestCase
 
         Storage::fake($disk_name);
 
-        $this->artisan('tools:generate_schema_command', ['--storage_disk' => $disk_name]);
+        $this->artisan('tools:generate_schema', ['--storage_disk' => $disk_name]);
 
         Storage::disk($disk_name)->assertExists('migrations.txt');
     }

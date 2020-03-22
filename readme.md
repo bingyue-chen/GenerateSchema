@@ -38,7 +38,7 @@ php artisan vendor:publish --tag=generate-schema
 
 - generate scheam with command
 ```
-php artisan tools:generate_schema_command --storage_disk=local
+php artisan tools:generate_schema --storage_disk=local
 ```
 
 ## Support Database

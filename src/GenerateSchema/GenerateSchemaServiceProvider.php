@@ -13,7 +13,7 @@ class GenerateSchemaServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/Configs/generate-schema-command.php' => config_path('generate-schema-command.php'),
+            __DIR__.'/Configs/generate-schema.php' => config_path('generate-schema.php'),
         ], 'generate-schema');
 
         if ($this->app->runningInConsole()) {
@@ -29,8 +29,8 @@ class GenerateSchemaServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/Configs/generate-schema-command.php',
-            'generate-schema-command'
+            __DIR__.'/Configs/generate-schema.php',
+            'generate-schema'
         );
     }
 }

@@ -12,7 +12,7 @@ class GenerateSchemaCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'tools:generate_schema_command
+    protected $signature = 'tools:generate_schema
                             {--D|database= : Whether the database should be generated}
                             {--S|storage_disk= : Whether the storage should be schema render to}';
 
@@ -53,7 +53,7 @@ class GenerateSchemaCommand extends Command
 
     protected function getConfig()
     {
-        $this->config = config('generate-schema-command');
+        $this->config = config('generate-schema');
     }
 
     protected function getDatabaseManager()

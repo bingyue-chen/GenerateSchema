@@ -87,7 +87,7 @@ class Generator
         ])[$connection_driver] ?? null;
 
         if (null === $database_manager_class) {
-            throw new DatabaseManagerException('Not support database driver ['.$connection_driver.']. Please check database default config or specific custom database manager in [config/generate-schema-command.php] file.');
+            throw new DatabaseManagerException('Not support database driver ['.$connection_driver.']. Please check database default config or specific custom database manager in [config/generate-schema.php] file.');
         }
 
         $this->database_manager = app()->makeWith($database_manager_class, [
