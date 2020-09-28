@@ -1,6 +1,6 @@
 # GenerateSchema
 
-[![Build Status](https://drone.snowcookie.moe/api/badges/snowshana/GenerateSchema/status.svg?ref=refs/heads/4.x)](https://drone.snowcookie.moe/snowshana/GenerateSchema)
+[![Build Status](https://drone.snowcookie.moe/api/badges/bingyue-chen/GenerateSchema/status.svg?ref=refs/heads/5.x)](https://drone.snowcookie.moe/bingyue-chen/GenerateSchema)
 
 > Generate schema from database
 
@@ -10,6 +10,7 @@
 :---------|:----------------
  6.x      | 3.x
  7.x      | 4.x
+ 8.x      | 5.x
 
 ## Usage
 
