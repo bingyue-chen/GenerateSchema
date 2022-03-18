@@ -6,11 +6,12 @@
 
 ## Requirement
 
- Laravel  | GenerateSchema
-:---------|:----------------
- 6.x      | 3.x
- 7.x      | 4.x
- 8.x      | 5.x
+ | Laravel | GenerateSchema |
+ | :------ | :------------- |
+ | 6.x     | 3.x            |
+ | 7.x     | 4.x            |
+ | 8.x     | 5.x            |
+ | 9.x     | 6.x            |
 
 ## Usage
 
@@ -25,7 +26,7 @@ public function register()
 {
     ...
 
-    if ($this->app->environment('local')) {
+    if (class_exists('Snowcookie\GenerateSchema\GenerateSchemaServiceProvider')) {
         $this->app->register('Snowcookie\GenerateSchema\GenerateSchemaServiceProvider');
     }
     ...

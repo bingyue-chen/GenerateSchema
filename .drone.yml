@@ -3,46 +3,46 @@ kind: pipeline
 name: generate-schema
 
 steps:
-- name: setupphp73
+- name: setupphp80
   image: docker
   volumes:
   - name: docker
     path: /var/run/docker.sock
   commands:
-    - docker build --rm -t snowcookie/generate-schema-php73 ./docker/php73
+    - docker build --rm -t snowcookie/generate-schema-php80 ./docker/php80
 
-- name: testphp73
-  image: snowcookie/generate-schema-php73:latest
+- name: testphp80
+  image: snowcookie/generate-schema-php80:latest
   pull: if-not-exists
   volumes:
-  - name: vendorphp73
+  - name: vendorphp80
     path: /drone/src/vendor
   commands:
     - composer install
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
   depends_on:
-    - setupphp73
+    - setupphp80
 
-- name: setupphp74
+- name: setupphp81
   image: docker
   volumes:
   - name: docker
     path: /var/run/docker.sock
   commands:
-    - docker build --rm -t snowcookie/generate-schema-php74 ./docker/php74
+    - docker build --rm -t snowcookie/generate-schema-php81 ./docker/php81
 
-- name: testphp74
-  image: snowcookie/generate-schema-php74:latest
+- name: testphp81
+  image: snowcookie/generate-schema-php81:latest
   pull: if-not-exists
   volumes:
-  - name: vendorphp74
+  - name: vendorphp81
     path: /drone/src/vendor
   commands:
     - composer install
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
   depends_on:
-    - setupphp74
-    - testphp73
+    - setupphp81
+    - testphp80
 
 services:
 - name: snowcookie-generate-schema-mysql
