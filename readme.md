@@ -1,6 +1,6 @@
 # GenerateSchema
 
-[![Build Status](https://drone.snowcookie.moe/api/badges/bingyue-chen/GenerateSchema/status.svg?ref=refs/heads/5.x)](https://drone.snowcookie.moe/bingyue-chen/GenerateSchema)
+[![Build Status](https://drone.snowcookie.moe/api/badges/bingyue-chen/GenerateSchema/status.svg?ref=refs/heads/6.x)](https://drone.snowcookie.moe/bingyue-chen/GenerateSchema)
 
 > Generate schema from database
 
