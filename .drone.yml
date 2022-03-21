@@ -19,6 +19,7 @@ steps:
     path: /drone/src/vendor
   commands:
     - composer install
+    - sleep 10
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
   depends_on:
     - setupphp80
