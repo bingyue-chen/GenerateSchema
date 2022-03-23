@@ -69,10 +69,10 @@ volumes:
   host:
     path: /var/run/docker.sock
 
-- name: vendorphp73
+- name: vendorphp80
   host:
-    path: /home/snow/drone/${DRONE_REPO_NAME}/php73/vendor
+    path: /home/snowcookie/drone/${DRONE_REPO_NAME}/php80/vendor
 
-- name: vendorphp74
+- name: vendorphp81
   host:
-    path: /home/snow/drone/${DRONE_REPO_NAME}/php74/vendor
+    path: /home/snowcookie/drone/${DRONE_REPO_NAME}/php81/vendor
