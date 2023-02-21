@@ -12,27 +12,12 @@ services:
     command: --default-authentication-plugin=mysql_native_password
 
   postgres:
-    image: postgres:11
+    image: postgres:15
     container_name: snowcookie-generate-schema-postgres
     environment:
       - POSTGRES_DB=homestead
       - POSTGRES_PASSWORD=secret
       - POSTGRES_USER=homestead
-
-  php80:
-    build:
-      context: .
-      dockerfile: docker/php80/Dockerfile
-    container_name: snowcookie-generate-schema-php80
-    working_dir: /application
-    volumes:
-      - ./:/application
-    depends_on:
-      - mysql
-      - postgres
-    links:
-      - mysql
-      - postgres
 
   php81:
     build:

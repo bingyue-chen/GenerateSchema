@@ -3,27 +3,6 @@ kind: pipeline
 name: generate-schema
 
 steps:
-- name: setupphp80
-  image: docker
-  volumes:
-  - name: docker
-    path: /var/run/docker.sock
-  commands:
-    - docker build --rm -t snowcookie/generate-schema-php80 ./docker/php80
-
-- name: testphp80
-  image: snowcookie/generate-schema-php80:latest
-  pull: if-not-exists
-  volumes:
-  - name: vendorphp80
-    path: /drone/src/vendor
-  commands:
-    - composer install
-    - sleep 10
-    - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
-  depends_on:
-    - setupphp80
-
 - name: setupphp81
   image: docker
   volumes:
@@ -43,7 +22,6 @@ steps:
     - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
   depends_on:
     - setupphp81
-    - testphp80
 
 services:
 - name: snowcookie-generate-schema-mysql
@@ -57,7 +35,7 @@ services:
   command: [ "--default-authentication-plugin=mysql_native_password" ]
 
 - name: snowcookie-generate-schema-postgres
-  image: postgres:11
+  image: postgres:15
   pull: always
   environment:
     POSTGRES_DB: homestead
@@ -68,10 +46,6 @@ volumes:
 - name: docker
   host:
     path: /var/run/docker.sock
-
-- name: vendorphp80
-  host:
-    path: /home/snowcookie/drone/${DRONE_REPO_NAME}/php80/vendor
 
 - name: vendorphp81
   host:

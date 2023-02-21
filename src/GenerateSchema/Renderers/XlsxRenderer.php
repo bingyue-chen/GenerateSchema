@@ -2,8 +2,9 @@
 
 namespace Snowcookie\GenerateSchema\Renderers;
 
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Illuminate\Support\Facades\Storage;
+use OpenSpout\Common\Entity\Row;
+use OpenSpout\Writer\XLSX\Writer;
 use Snowcookie\GenerateSchema\Contracts\GeneratorRenderer;
 
 class XlsxRenderer implements GeneratorRenderer
@@ -12,7 +13,7 @@ class XlsxRenderer implements GeneratorRenderer
     {
         $storage = Storage::disk($disk_name);
 
-        $xlsx_writer = WriterEntityFactory::createXLSXWriter();
+        $xlsx_writer = new Writer();
 
         $file_path     = $database_name.'.xlsx';
         $tmp_file_path = '/tmp/'.$file_path;
@@ -32,10 +33,10 @@ class XlsxRenderer implements GeneratorRenderer
 
             $rows = [];
 
-            $rows[] = WriterEntityFactory::createRowFromArray(array_keys($table_column_schema[0]));
+            $rows[] = Row::fromValues(array_keys($table_column_schema[0]));
 
             foreach ($table_column_schema as $column_schema) {
-                $rows[] = WriterEntityFactory::createRowFromArray($column_schema);
+                $rows[] = Row::fromValues($column_schema);
             }
 
             $xlsx_writer->addRows($rows);

@@ -2,10 +2,11 @@
 
 namespace Snowcookie\GenerateSchema\Renderers;
 
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Exception;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
+use OpenSpout\Common\Entity\Row;
+use OpenSpout\Writer\CSV\Writer;
 use Snowcookie\GenerateSchema\Contracts\GeneratorRenderer;
 
 class CsvRenderer implements GeneratorRenderer
@@ -14,7 +15,7 @@ class CsvRenderer implements GeneratorRenderer
     {
         $storage = Storage::disk($disk_name);
 
-        $csv_writer = WriterEntityFactory::createCSVWriter();
+        $csv_writer = new Writer();
 
         $files_path = [];
 
@@ -25,13 +26,15 @@ class CsvRenderer implements GeneratorRenderer
 
                 $rows = [];
 
-                $rows[] = WriterEntityFactory::createRowFromArray(array_keys($table_column_schema[0]));
+                $rows[] = Row::fromValues(array_keys($table_column_schema[0]));
 
                 foreach ($table_column_schema as $column_schema) {
-                    $rows[] = WriterEntityFactory::createRowFromArray($column_schema);
+                    $rows[] = Row::fromValues($column_schema);
                 }
 
-                $csv_writer->openToFile($tmp_table_file_path)->addRows($rows)->close();
+                $csv_writer->openToFile($tmp_table_file_path);
+                $csv_writer->addRows($rows);
+                $csv_writer->close();
 
                 $file_content = file_get_contents($tmp_table_file_path);
 

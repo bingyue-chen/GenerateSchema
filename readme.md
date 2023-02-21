@@ -12,6 +12,7 @@
  | 7.x     | 4.x            |
  | 8.x     | 5.x            |
  | 9.x     | 6.x            |
+ | 10.x    | 7.x            |
 
 ## Usage
 
@@ -45,8 +46,8 @@ php artisan tools:generate_schema --storage_disk=local
 
 ## Support Database
 
-- Mysql 8     (MysqlManager)
-- Postgres 11 (PostgresManager)
+- Mysql (MysqlManager)
+- Postgres (PostgresManager)
 
 ## Extend Database Manager
 
