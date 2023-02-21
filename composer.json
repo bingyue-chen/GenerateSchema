@@ -30,7 +30,7 @@
         "phpunit/phpunit": "^10.0"
     },
     "suggest": {
-        "box/spout": "Required to use csv renderer or xlsx renderer. (^3.1)"
+        "openspout/openspout": "Required to use csv renderer or xlsx renderer. (^4.12)"
     },
     "autoload": {
         "psr-4": {

@@ -19,7 +19,7 @@ steps:
     path: /drone/src/vendor
   commands:
     - composer install
-    - vendor/bin/phpunit --testsuite "Package Test Suite" -v --debug
+    - vendor/bin/phpunit --testsuite "Package Test Suite" --testdox
   depends_on:
     - setupphp81
 
